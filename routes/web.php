@@ -33,8 +33,13 @@ Route::get('/about', function () {
 Route::get('/contsdfsdfasact', [ContactController::class, 'index'])->name('con');
 
 //Category Controller
-Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
-Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
+Route::middleware(['auth:sanctum', 'verified'])->get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
+Route::middleware(['auth:sanctum', 'verified'])->post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/category/edit/{id}', [CategoryController::class, 'EditCategory']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/category/update/{id}', [CategoryController::class, 'UpdateCategory']);
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
