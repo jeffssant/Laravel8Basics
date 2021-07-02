@@ -12,7 +12,9 @@ class CategoryController extends Controller
 {
     public function AllCat() {
 
-        $categories = Category::all();
+        /* $categories = Category::all(); */
+
+        $categories = Category::paginate(2);
 
        /*  $categories = DB::table('categories')->get(); */
 
