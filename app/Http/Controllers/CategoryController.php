@@ -14,7 +14,7 @@ class CategoryController extends Controller
 
         /* $categories = Category::all(); */
 
-        $categories = Category::paginate(2);
+        $categories = Category::paginate(3);
 
        /*  $categories = DB::table('categories')->get(); */
 

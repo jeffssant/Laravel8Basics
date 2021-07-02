@@ -30,8 +30,8 @@
                             <thead>
                               <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">User Id</th>
                                 <th scope="col">Category Name</th>
+                                <th scope="col">User Name</th>
                                 <th scope="col">Created At </th>
 
                               </tr>
@@ -40,8 +40,8 @@
                                 @foreach ( $categories as $category)
                                     <tr>
                                         <th scope="row">{{$category->id}}</th>
-                                        <td>{{$category->user_id}}</td>
                                         <td>{{$category->category_name}}</td>
+                                        <td>{{$category->user->name}}</td>
                                         <td>{{$category->created_at->diffForHumans()}}</td>
                                         {{-- <td>{{ Carbon\Carbon::parse($category->created_at)->diffForHumans() }}</td> --}} {{--Usar diff com query builder --}}
                                     </tr>
