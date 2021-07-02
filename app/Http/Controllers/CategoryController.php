@@ -14,6 +14,9 @@ class CategoryController extends Controller
 
         $categories = Category::all();
 
+       /*  $categories = DB::table('categories')->get(); */
+
+
         return view('admin.category.index', compact('categories'));
     }
 
