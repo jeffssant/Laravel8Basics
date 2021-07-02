@@ -13,12 +13,15 @@ class CategoryController extends Controller
     public function AllCat() {
 
         /* $categories = Category::all(); */
-
         $categories = Category::paginate(3);
 
        /*  $categories = DB::table('categories')->get(); */
-
-
+       /*  $categories = DB::table('categories')
+                        ->join('users','categories.user_id', 'users.id')
+                        ->select('categories.*','users.name')
+                        ->latest()->get();
+            //Relacionamento utilizando query builder
+ */
         return view('admin.category.index', compact('categories'));
     }
 
