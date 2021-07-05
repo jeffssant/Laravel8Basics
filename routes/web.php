@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/category/update/{id}', [
 Route::middleware(['auth:sanctum', 'verified'])->delete('softdelete/category/{id}', [CategoryController::class, 'deleteCategory']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('category/restore/{id}', [CategoryController::class, 'RestoreCategory']);
+Route::middleware(['auth:sanctum', 'verified'])->delete('category/pdelete/{id}', [CategoryController::class, 'PDeleteCategory']);
 
 
 

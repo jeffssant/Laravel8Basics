@@ -87,8 +87,13 @@
                                             <td>{{ Carbon\Carbon::parse($cat->created_at)->diffForHumans() }}</td> {{--Usar diff com query builder --}}
 
                                             <td>
-                                                <a href="{{url('category/restore/'.$cat->id)}}" class="btn btn-info">Restore</a>
-                                                <a href="" class="btn btn-danger">P Delete</a>
+
+                                                <form action="{{url('category/pdelete/'.$cat->id)}}" method="post">
+                                                    <a href="{{url('category/restore/'.$cat->id)}}" class="btn btn-info">Restore</a>
+                                                    @csrf
+                                                    {{ method_field('delete') }}
+                                                    <button class="btn btn-danger" type="submit">P Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
