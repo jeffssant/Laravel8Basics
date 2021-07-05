@@ -21,8 +21,11 @@ class CategoryController extends Controller
                         ->select('categories.*','users.name')
                         ->latest()->get();
             //Relacionamento utilizando query builder
+
  */
-        return view('admin.category.index', compact('categories'));
+
+        $trachCat = Category::onlyTrashed()->latest()->paginate(3);
+        return view('admin.category.index', compact('categories'), compact('trachCat'));
     }
 
     public function AddCat(Request $request) {
@@ -75,5 +78,11 @@ class CategoryController extends Controller
         $category->save();
 
         return Redirect()->back()->with('success', "Category updated");
+    }
+
+    public function deleteCategory($id) {
+        $delete = Category::find($id)->delete();
+
+        return Redirect()->back()->with('success', "Category Deleted");
     }
 }

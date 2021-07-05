@@ -49,8 +49,13 @@
                                         {{-- <td>{{ Carbon\Carbon::parse($category->created_at)->diffForHumans() }}</td> --}} {{--Usar diff com query builder --}}
 
                                         <td>
-                                            <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="" class="btn btn-danger">Delete</a>
+                                            <form action="{{url('softdelete/category/'.$category->id)}}" method="post">
+                                                <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-info">Edit</a>
+                                                @csrf
+                                                {{ method_field('delete') }}
+                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                            </form>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -58,6 +63,42 @@
                         </table>
                         {{$categories->links()}}
                     </div>
+                    @if (!$trachCat->isEmpty())
+
+                        <div class="card mt-5">
+                            <div class="card-header">Excludes Categories</div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Category Name</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Deletad At </th>
+                                    <th scope="col">Action </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ( $trachCat as $cat)
+                                        <tr>
+                                            <th scope="row">{{$cat->id}}</th>
+                                            <td>{{$cat->category_name}}</td>
+                                            <td>{{$cat->user->name}}</td>
+                                            {{-- <td>{{$cat->deletad_at->diffForHumans()}}</td> --}}
+                                            <td>{{ Carbon\Carbon::parse($cat->created_at)->diffForHumans() }}</td> {{--Usar diff com query builder --}}
+
+                                            <td>
+                                                <a href="{{url('category/edit/'.$cat->id)}}" class="btn btn-info">Edit</a>
+                                                <a href="" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            {{$trachCat->links()}}
+                        </div>
+
+                    @endif
+
                 </div>
                 <div class="col-md-4">
                     <div class="card">

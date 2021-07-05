@@ -39,6 +39,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/category/add', [Category
 Route::middleware(['auth:sanctum', 'verified'])->get('/category/edit/{id}', [CategoryController::class, 'EditCategory']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/category/update/{id}', [CategoryController::class, 'UpdateCategory']);
 
+Route::middleware(['auth:sanctum', 'verified'])->delete('softdelete/category/{id}', [CategoryController::class, 'deleteCategory']);
+
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
