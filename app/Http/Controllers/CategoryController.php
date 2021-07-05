@@ -85,4 +85,10 @@ class CategoryController extends Controller
 
         return Redirect()->back()->with('success', "Category Deleted");
     }
+
+    public function RestoreCategory($id){
+        $deletes = Category::withTrashed()->find($id)->restore();
+
+        return Redirect()->back()->with('success', "Category Restored");
+    }
 }
