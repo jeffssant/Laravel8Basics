@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+
 
 class BrandController extends Controller
 {
@@ -31,7 +33,7 @@ class BrandController extends Controller
         //Pega dados da imagem
         $brand_image = $request->file('brand_image');
 
-        //Pega extenção da imagem
+        /* //Pega extenção da imagem
         $img_ext = strtolower($brand_image->getClientOriginalExtension());
 
         //Gera um nome unico
@@ -44,12 +46,23 @@ class BrandController extends Controller
         $up_location = 'image/brand/';
 
         //Sobe a imagem para a pasta com o novo nome unico
-        $brand_image->move($up_location,$img_name);
+        $brand_image->move($up_location,$img_name); */
+
+
+        //Gera um nome unico
+        $name_gen = hexdec(uniqid()).'.'.$brand_image->getClientOriginalExtension();
+
+        //Local de uploado
+        $up_location = 'image/brand/';
+
+        //Redimenciona e move imagem
+        Image::make($brand_image)->resize(300,200)->save($up_location.$name_gen);
+
 
         //Salva os dados no banco
         $brandData = new Brand;
         $brandData->brand_name = $request->brand_name;
-        $brandData->brand_image = $up_location.$img_name;
+        $brandData->brand_image = $up_location.$name_gen;
         $brandData->save();
 
         return Redirect()->back()->with('success', "Brand insert successful");
