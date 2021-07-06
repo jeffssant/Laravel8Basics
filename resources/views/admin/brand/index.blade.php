@@ -38,11 +38,11 @@
                                         <td><img src="{{asset($brand->brand_image)}}" alt="Logo"></td>
                                         <td>{{$brand->created_at->diffForHumans()}}</td>
                                         <td>
-                                            <form action="{{url('softdelete/brand/'.$brand->id)}}" method="post">
-                                                <a href="{{url('brand/edit/'.$brand->id)}}" class="btn btn-info">Edit</a>
+                                            <form action="{{url('brand/delete/'.$brand->id)}}" method="post" class="row px-3">
+                                                <a href="{{url('brand/edit/'.$brand->id)}}" class="btn btn-info col-12 mb-3">Edit</a>
                                                 @csrf
                                                 {{ method_field('delete') }}
-                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                                <button class="btn btn-danger" type="submit" class="col-12">Delete</button>
                                             </form>
 
                                         </td>

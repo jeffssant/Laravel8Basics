@@ -25,7 +25,7 @@
                             <form action="{{url('brand/update/'.$brand->id)}}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
-
+                                <input type="hidden" value="{{$brand->brand_image}}" name="old_img">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" name="brand_name" value="{{$brand->brand_name}}">
                                     @error('brand_name')

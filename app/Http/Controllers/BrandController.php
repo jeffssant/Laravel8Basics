@@ -63,6 +63,17 @@ class BrandController extends Controller
 
     public function UpdateBrand(Request $request, $id) {
 
+        $validated = $request->validate(
+
+            [
+                'brand_name' => 'required|min:4'
+            ],
+            [
+                'brand_name.required' => 'Please Input Brand Name',
+                'brand_name.min' => 'Brand Name Must Contain min 4 Chars'
+            ],
+        );
+
         $brand = Brand::find($id);
 
         if($request->file('brand_image')){
@@ -86,6 +97,9 @@ class BrandController extends Controller
 
             //Aplica imagem ao objeto brand
             $brand->brand_image = $up_location.$img_name;
+
+            //exclui imagem antiga
+            unlink($request->old_img);
         }
 
         //Salva os dados
@@ -94,5 +108,15 @@ class BrandController extends Controller
         $brand->save();
 
         return Redirect()->back()->with('success', "Brand updated");
+    }
+
+    public function DeleteBrand($id) {
+
+        $brand = Brand::find($id);
+        unlink($brand->brand_image);
+
+        $brand->delete();
+
+        return Redirect()->back()->with('success', "Brand Deleted");
     }
 }
