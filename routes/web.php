@@ -52,6 +52,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 //Brand
 Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
+Route::post('/brand/add', [BrandController::class, 'AddBrand'])->name('store.brand');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

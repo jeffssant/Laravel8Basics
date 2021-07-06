@@ -35,7 +35,7 @@
                                     <tr>
                                         <th scope="row">{{$brand->id}}</th>
                                         <td>{{$brand->brand_name}}</td>
-                                        <td><img src="{{$brand->brand_name}}" alt="Logo"></td>
+                                        <td><img src="/{{$brand->brand_image}}" alt="Logo"></td>
                                         <td>{{$brand->created_at->diffForHumans()}}</td>
                                         <td>
                                             <form action="{{url('softdelete/brand/'.$brand->id)}}" method="post">
@@ -58,7 +58,7 @@
                     <div class="card">
                         <div class="card-header">Add Brand</div>
                         <div class="card-body">
-                            <form action="{{route('store.category')}}" method="POST">
+                            <form action="{{route('store.brand')}}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
 
