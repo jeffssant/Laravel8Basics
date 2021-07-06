@@ -34,9 +34,10 @@ Route::get('/about', function () {
 Route::get('/contsdfsdfasact', [ContactController::class, 'index'])->name('con');
 
 
-//Category Controller
+//Auth
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
+    //Categoty
     Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
     Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
 
@@ -48,14 +49,20 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('category/restore/{id}', [CategoryController::class, 'RestoreCategory']);
     Route::delete('category/pdelete/{id}', [CategoryController::class, 'PDeleteCategory']);
 
+
+    //Brand
+    Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
+    Route::post('/brand/add', [BrandController::class, 'AddBrand'])->name('store.brand');
+    Route::get('/brand/edit/{id}', [BrandController::class, 'EditBrand']);
+    Route::post('/brand/update/{id}', [BrandController::class, 'UpdateBrand']);
+    Route::delete('brand/delete/{id}', [BrandController::class, 'DeleteBrand']);
+
+
 });
 
-//Brand
-Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
-Route::post('/brand/add', [BrandController::class, 'AddBrand'])->name('store.brand');
-Route::get('/brand/edit/{id}', [BrandController::class, 'EditBrand']);
-Route::post('/brand/update/{id}', [BrandController::class, 'UpdateBrand']);
-Route::delete('brand/delete/{id}', [BrandController::class, 'DeleteBrand']);
+//Multi Image
+Route::get('/multi/image', [BrandController::class, 'Multi'])->name('multi');
+Route::post('/multi/add', [BrandController::class, 'AddImage'])->name('add.image');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
