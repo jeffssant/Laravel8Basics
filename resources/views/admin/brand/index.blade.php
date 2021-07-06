@@ -35,7 +35,7 @@
                                     <tr>
                                         <th scope="row">{{$brand->id}}</th>
                                         <td>{{$brand->brand_name}}</td>
-                                        <td><img src="/{{$brand->brand_image}}" alt="Logo"></td>
+                                        <td><img src="{{asset($brand->brand_image)}}" alt="Logo"></td>
                                         <td>{{$brand->created_at->diffForHumans()}}</td>
                                         <td>
                                             <form action="{{url('softdelete/brand/'.$brand->id)}}" method="post">
