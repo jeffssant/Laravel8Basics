@@ -23,6 +23,13 @@
                         All category
                     </x-jet-nav-link>
                 </div>
+
+                <!-- Brand -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('all.brand') }}" >
+                       Brand
+                    </x-jet-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

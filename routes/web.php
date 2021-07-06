@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
@@ -32,18 +33,25 @@ Route::get('/about', function () {
 
 Route::get('/contsdfsdfasact', [ContactController::class, 'index'])->name('con');
 
+
 //Category Controller
-Route::middleware(['auth:sanctum', 'verified'])->get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
-Route::middleware(['auth:sanctum', 'verified'])->post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/category/edit/{id}', [CategoryController::class, 'EditCategory']);
-Route::middleware(['auth:sanctum', 'verified'])->post('/category/update/{id}', [CategoryController::class, 'UpdateCategory']);
+    Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
+    Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
 
-Route::middleware(['auth:sanctum', 'verified'])->delete('softdelete/category/{id}', [CategoryController::class, 'deleteCategory']);
+    Route::get('/category/edit/{id}', [CategoryController::class, 'EditCategory']);
+    Route::post('/category/update/{id}', [CategoryController::class, 'UpdateCategory']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('category/restore/{id}', [CategoryController::class, 'RestoreCategory']);
-Route::middleware(['auth:sanctum', 'verified'])->delete('category/pdelete/{id}', [CategoryController::class, 'PDeleteCategory']);
+    Route::delete('softdelete/category/{id}', [CategoryController::class, 'deleteCategory']);
 
+    Route::get('category/restore/{id}', [CategoryController::class, 'RestoreCategory']);
+    Route::delete('category/pdelete/{id}', [CategoryController::class, 'PDeleteCategory']);
+
+});
+
+//Brand
+Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
