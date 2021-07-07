@@ -6,6 +6,8 @@ use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -40,12 +42,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //Categoty
     Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
     Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
-
     Route::get('/category/edit/{id}', [CategoryController::class, 'EditCategory']);
     Route::post('/category/update/{id}', [CategoryController::class, 'UpdateCategory']);
-
     Route::delete('softdelete/category/{id}', [CategoryController::class, 'deleteCategory']);
-
     Route::get('category/restore/{id}', [CategoryController::class, 'RestoreCategory']);
     Route::delete('category/pdelete/{id}', [CategoryController::class, 'PDeleteCategory']);
 
@@ -57,12 +56,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/brand/update/{id}', [BrandController::class, 'UpdateBrand']);
     Route::delete('brand/delete/{id}', [BrandController::class, 'DeleteBrand']);
 
+    //Multi Image
+    Route::get('/multi/image', [BrandController::class, 'Multi'])->name('multi');
+    Route::post('/multi/add', [BrandController::class, 'AddImage'])->name('add.image');
+
 
 });
 
-//Multi Image
-Route::get('/multi/image', [BrandController::class, 'Multi'])->name('multi');
-Route::post('/multi/add', [BrandController::class, 'AddImage'])->name('add.image');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
@@ -71,3 +72,22 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard', compact('users'));
 
 })->name('dashboard');
+
+
+//Verificar email
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+//Resend
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
