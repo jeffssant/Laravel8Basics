@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,3 +93,11 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+Route::get('/user/logout', function () {
+
+    Auth::logout();
+    return Redirect()->route('login')->with('success', 'User Logout');
+
+})->name('user.logout');
