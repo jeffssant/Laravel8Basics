@@ -39,5 +39,61 @@ class HomeController extends Controller
 
     }
 
+    public function EditSlider($id){
+        $slider = Slider::find($id);
+
+        return view('admin.slider.edit', compact('slider'));
+    }
+
+    public function UpdateSlider(Request $request, $id){
+
+        $sliderData= Slider::find($id);
+
+        if($request->file('image')){
+            //Pega dados da imagem
+            $slider_image = $request->file('image');
+
+            //Pega extenção da imagem
+            $img_ext = strtolower($slider_image->getClientOriginalExtension());
+
+            //Gera um nome unico
+            $name_gen = hexdec(uniqid());
+
+            //Gera um novo nome unico para imagem com a extenção
+            $img_name = $name_gen.'.'.$img_ext;
+
+            //Local de uploado
+            $up_location = 'image/brand/';
+
+            //Sobe a imagem para a pasta com o novo nome unico
+            $slider_image->move($up_location,$img_name);
+
+            //Aplica imagem ao objeto brand
+            $sliderData->image = $up_location.$img_name;
+
+            //exclui imagem antiga
+            unlink($request->old_img);
+        }
+
+        //Salva os dados
+        $sliderData->title = $request->title;
+        $sliderData->description = $request->description;
+
+        $sliderData->save();
+
+        return Redirect()->back()->with('success', "Slider updated");
+
+    }
+
+    public function DeleteSlider($id) {
+
+        $slider = Slider::find($id);
+        unlink($slider->image);
+
+        $slider->delete();
+
+        return Redirect()->back()->with('success', "Slider Deleted");
+    }
+
 
 }

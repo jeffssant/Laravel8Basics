@@ -76,7 +76,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     })->name('add.slider');
 
+
+
     Route::post('/home/slider/add', [HomeController::class, 'StoreSlider'])->name('store.slider');
+
+    Route::get('/home/slider/edit/{id}', [HomeController::class, 'EditSlider'])->name('edit.slider');
+
+    Route::post('/home/slider/update/{id}', [HomeController::class, 'UpdateSlider']);
+
+    Route::delete('/home/slider/delete/{id}', [HomeController::class, 'DeleteSlider']);
 
 
 

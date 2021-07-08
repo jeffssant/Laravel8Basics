@@ -35,8 +35,8 @@
                                 <td>{{$slider->description}}</td>
                                 <td><img src="{{asset($slider->image)}}" alt="Logo" class="img-fluid w-50"></td>
                                 <td>
-                                    <form action="{{url('slider/delete/'.$slider->id)}}" method="post" class="row px-3">
-                                        <a href="{{url('slider/edit/'.$slider->id)}}"
+                                    <form action="{{url('home/slider/delete/'.$slider->id)}}" method="post" class="row px-3">
+                                        <a href="{{url('home/slider/edit/'.$slider->id)}}"
                                             class="btn btn-info col-12 mb-3">Edit</a>
                                         @csrf
                                         {{ method_field('delete') }}
