@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Models\Brand;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -27,7 +28,8 @@ use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function () {
     $brands = Brand::all();
-    return view('home', compact('brands'));
+    $sliders = Slider::all();
+    return view('home', compact('brands', 'sliders'));
 });
 
 Route::get('/about', function () {
