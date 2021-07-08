@@ -57,7 +57,7 @@ class BrandController extends Controller
         $up_location = 'image/brand/';
 
         //Redimenciona e move imagem
-        Image::make($brand_image)->resize(300,200)->save($up_location.$name_gen);
+        Image::make($brand_image)->save($up_location.$name_gen); //Pra redmensionar use resize(400,100) antes do save
 
 
         //Salva os dados no banco
@@ -153,7 +153,7 @@ class BrandController extends Controller
             $up_location = 'image/multi/';
 
             //Redimenciona e move imagem
-            Image::make($image)->resize(300,200)->save($up_location.$name_gen);
+            Image::make($image)->resize(400,100)->save($up_location.$name_gen);
 
             //Salva os dados no banco
             $imageData = new Multipic;

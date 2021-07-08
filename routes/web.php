@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Models\Brand;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -24,7 +25,8 @@ use Illuminate\Support\Facades\Redirect;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $brands = Brand::all();
+    return view('home', compact('brands'));
 });
 
 Route::get('/about', function () {

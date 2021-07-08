@@ -186,7 +186,7 @@
 
 
             <div class="content-wrapper">
-                <div class="content">
+                <div class="content pt-0">
                     @yield('admin')
                 </div>
             </div>
