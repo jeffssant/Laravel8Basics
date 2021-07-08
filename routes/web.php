@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +64,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     //Multi Image
     Route::get('/multi/image', [BrandController::class, 'Multi'])->name('multi');
     Route::post('/multi/add', [BrandController::class, 'AddImage'])->name('add.image');
+
+    //Admin Slider
+    Route::get('/home/slider', [HomeController::class, 'HomeSlider'])->name('home.slider');
+
+    Route::get('/add/slider', function () {
+
+        return view('admin.slider.add');
+
+    })->name('add.slider');
+
+    Route::post('/home/slider/add', [HomeController::class, 'StoreSlider'])->name('store.slider');
+
 
 
 });

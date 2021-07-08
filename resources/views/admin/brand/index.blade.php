@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">All Category</div>
+                    <div class="card-header">All Brands</div>
                     <table class="table text-center">
                         <thead>
                             <tr>
