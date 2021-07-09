@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HomeAbout;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -93,6 +94,19 @@ class HomeController extends Controller
         $slider->delete();
 
         return Redirect()->back()->with('success', "Slider Deleted");
+    }
+
+    public function UpdateAbout(Request $request){
+
+        $about = HomeAbout::firstOrNew();
+
+        $about->title = $request->title;
+        $about->short_dis = $request->short_dis;
+        $about->long_dis = $request->long_dis;
+
+        $about->save();
+
+        return Redirect()->back()->with('success', "Data updated");
     }
 
 

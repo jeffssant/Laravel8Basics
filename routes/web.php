@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Models\Brand;
+use App\Models\HomeAbout;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,8 @@ use Illuminate\Support\Facades\Redirect;
 Route::get('/', function () {
     $brands = Brand::all();
     $sliders = Slider::all();
-    return view('home', compact('brands', 'sliders'));
+    $about = HomeAbout::first();
+    return view('home', compact('brands', 'sliders', 'about'));
 });
 
 Route::get('/about', function () {
@@ -76,17 +78,23 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     })->name('add.slider');
 
-
-
     Route::post('/home/slider/add', [HomeController::class, 'StoreSlider'])->name('store.slider');
-
     Route::get('/home/slider/edit/{id}', [HomeController::class, 'EditSlider'])->name('edit.slider');
-
     Route::post('/home/slider/update/{id}', [HomeController::class, 'UpdateSlider']);
-
     Route::delete('/home/slider/delete/{id}', [HomeController::class, 'DeleteSlider']);
 
+    //Admin About
+    Route::get('/home/about', function () {
 
+        $about = HomeAbout::first();
+
+        if(!$about){$about = new HomeAbout;}
+
+        return view('admin.about.index', compact('about'));
+
+    })->name('home.about');
+
+    Route::post('/home/about/update/', [HomeController::class, 'UpdateAbout']);
 
 });
 

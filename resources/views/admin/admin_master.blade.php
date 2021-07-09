@@ -40,6 +40,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
     <script src="{{asset('admin/assets/plugins/nprogress/nprogress.js')}}"></script>
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 </head>
 
 
@@ -96,6 +97,11 @@
     <script src="{{asset('admin/assets/js/date-range.js')}}"></script>
     <script src="{{asset('admin/assets/js/map.js')}}"></script>
     <script src="{{asset('admin/assets/js/custom.js')}}"></script>
+
+    <script>
+        console.log(CKEDITOR);
+      CKEDITOR.config.allowedContent = true;
+    </script>
 
 
 
